@@ -1,0 +1,10 @@
+aws_region=$aws_region
+AWS_ACCESS_KEY_ID=$aws_key_id
+AWS_SECRET_ACCESS_KEY=$aws_secret
+codebuild_github_repo=$app_source_repo
+dockerfile_path="$"
+github_personal_access_token=$github_token
+project_env=$project_env
+project_name=$project_name
+cluster_admins_arns=$cluster_admins
+
