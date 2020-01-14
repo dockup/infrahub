@@ -117,11 +117,13 @@ Now, apply it to Kubernetes.
 ```bash
 $ kubectl apply -f app-secrets.yaml
 ```
-Steps 4-6 will be changed after discussing with Zach how he prefers to deploy.  
 
 4. Head over to AWS CodeBuild Console, run a build - This builds the docker image and pushes it to ECR.
+
 5. Once the build is finished, head over to ECR Console and get the latest build image URL.
+
 6. Replace `<image-pull-url-from-ecr-here>` in `deployment.yaml` with the image URL.
+
 7. Deploy:
 ```bash
 $ kubectl apply -f deployment.yaml
