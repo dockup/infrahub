@@ -25,6 +25,11 @@ Copy `app.auto.tfvars.example` to `app.auto.tfvars` and edit it with the actual 
   }
 ]
 ```
+`database_name` : Name of the RDS database which is used by the application
+
+`database_username` : RDS Postgres username
+
+`database_password` : RDS Postgres password
 
 `project_env` : Deployment environment used for tagging resources in AWS. eg: "production", "staging"
 
