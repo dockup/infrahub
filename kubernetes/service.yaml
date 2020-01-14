@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: $DOCKUP_APP_NAME-service
+  namespace: $DOCKUP_KUBERNETES_NAMESPACE
+
+spec:
+  ports:
+  - name: $DOCKUP_APP_NAME-port-$DOCKUP_APP_PORT
+    port: $DOCKUP_APP_PORT
+    protocol: TCP
+    targetPort: $DOCKUP_APP_PORT
+  selector:
+    app: $DOCKUP_APP_NAME

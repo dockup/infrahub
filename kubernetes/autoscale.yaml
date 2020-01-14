@@ -1,0 +1,31 @@
+apiVersion: v1
+items:
+- apiVersion: autoscaling/v2beta2
+  kind: HorizontalPodAutoscaler
+  metadata:
+    name: name: $DOCKUP_APP_NAME-hpa
+    namespace: $DOCKUP_KUBERNETES_NAMESPACE
+  spec:
+    maxReplicas: 3
+    minReplicas: 2
+    metrics:
+    - resource:
+        name: cpu
+        target:
+          averageUtilization: 65
+          type: Utilization
+      type: Resource
+    - resource:
+        name: memory
+        target:
+          averageUtilization: 75
+          type: Utilization
+      type: Resource
+    scaleTargetRef:
+      apiVersion: extensions/v1beta1
+      kind: Deployment
+      name: $DOCKUP_APP_NAME-deployment
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""

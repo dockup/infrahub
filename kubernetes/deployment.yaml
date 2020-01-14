@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: $DOCKUP_APP_NAME-deployment
+  namespace: $DOCKUP_KUBERNETES_NAMESPACE
+
+spec:
+  selector:
+    matchLabels:
+      app: $DOCKUP_APP_NAME
+  template:
+    metadata:
+      labels:
+        app: $DOCKUP_APP_NAME
+    spec:
+      containers:
+        - name: $DOCKUP_APP_NAME
+          envFrom:
+            - configMapRef:
+              name: $DOCKUP_APP_NAME-secrets
+
+          image: $DOCKUP_ECR_IMAGE
+          imagePullPolicy: Always
+
+          command:
+            - $DOCKUP_APP_START_COMMAND
+          ports:
+          - containerPort: $DOCKUP_APP_PORT
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /ping
+              port: $DOCKUP_APP_PORT
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 200m
+              memory: 750Mi
+            requests:
+              cpu: 200m
+              memory: 750Mi

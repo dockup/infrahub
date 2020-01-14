@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: $DOCKUP_APP_NAME-ingress
+  namespace: $DOCKUP_KUBERNETES_NAMESPACE
+
+spec:
+  rules:
+  - host: $DOCKUP_TRAEFIK_ELB_ENDPOINT
+    http:
+      paths:
+      - backend:
+          serviceName: $DOCKUP_APP_NAME-service
+          servicePort: $DOCKUP_APP_PORT
