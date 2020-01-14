@@ -1,0 +1,12 @@
+# Exclude terraform related files/folders
+.terraform
+*.tfstate
+*.tfstate.backup
+.terraform.tfstate.lock.info
+*.tfvars
+
+# Kubeconfig
+kubeconfig*
+config-map*
+
+.DS_Store
