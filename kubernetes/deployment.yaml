@@ -17,7 +17,7 @@ spec:
         - name: $DOCKUP_APP_NAME
           envFrom:
             - configMapRef:
-              name: $DOCKUP_APP_NAME-secrets
+                name: $DOCKUP_APP_NAME-secrets
 
           image: $DOCKUP_ECR_IMAGE
           imagePullPolicy: Always
