@@ -199,7 +199,7 @@ phases:
       - echo Images pushed to ECR
       - echo Setting up Kustomize for auto-deploy
       - mkdir kustomize && cd kustomize
-      - curl -H "Authorization:token $GITHUB_TOKEN" -H "Accept:application/vnd.github.v3.raw" -O -L https://api.github.com/repos/godockup/breve/contents/kubernetes/deployment.yaml
+      - $DOCKUP_CODEBUILD_KUSTOMIZE_CURL
       - |
         cat <<KUSTOMIZE >kustomization.yaml
         apiVersion: kustomize.config.k8s.io/v1beta1
@@ -209,7 +209,7 @@ phases:
             - deployment.yaml
 
         images:
-        - name: <image-pull-url-from-ecr-here>
+        - name: <DOCKUP_ECR_IMAGE>
           newName: ${aws_ecr_repository.dockup.repository_url}
           newTag: $CODEBUILD_RESOLVED_SOURCE_VERSION
         KUSTOMIZE
@@ -233,22 +233,22 @@ EOF
   }
 }
 
-# resource "aws_codebuild_webhook" "dockup" {
-#   project_name = "${aws_codebuild_project.dockup.name}"
+resource "aws_codebuild_webhook" "dockup" {
+  project_name = "${aws_codebuild_project.dockup.name}"
 
-#   # Trigger build for "PUSH" event to "MASTER" branch
-#   filter_group {
-#     filter {
-#       type    = "EVENT"
-#       pattern = "PUSH"
-#     }
+  # Trigger build for "PUSH" event to "MASTER" branch
+  filter_group {
+    filter {
+      type    = "EVENT"
+      pattern = "PUSH"
+    }
 
-#     filter {
-#       type    = "HEAD_REF"
-#       pattern = "master"
-#     }
-#   }
-# }
+    filter {
+      type    = "HEAD_REF"
+      pattern = "master"
+    }
+  }
+}
 
 # following PERSONAL_ACCESS_TOKEN must have permissions
 # repo:             - Grants full control of private repositories.
