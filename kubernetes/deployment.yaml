@@ -19,18 +19,17 @@ spec:
             - configMapRef:
                 name: $DOCKUP_APP_NAME-secrets
 
-          image: $DOCKUP_ECR_IMAGE
+          image: <DOCKUP_ECR_IMAGE>
           imagePullPolicy: Always
 
-          command:
-            - $DOCKUP_APP_START_COMMAND
+          command: $DOCKUP_APP_START_COMMAND
           ports:
           - containerPort: $DOCKUP_APP_PORT
             protocol: TCP
           readinessProbe:
             failureThreshold: 3
             httpGet:
-              path: /ping
+              path: /
               port: $DOCKUP_APP_PORT
               scheme: HTTP
             periodSeconds: 10
