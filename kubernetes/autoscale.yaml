@@ -3,7 +3,7 @@ items:
 - apiVersion: autoscaling/v2beta2
   kind: HorizontalPodAutoscaler
   metadata:
-    name: name: $DOCKUP_APP_NAME-hpa
+    name: $DOCKUP_APP_NAME-hpa
     namespace: $DOCKUP_KUBERNETES_NAMESPACE
   spec:
     maxReplicas: 3
